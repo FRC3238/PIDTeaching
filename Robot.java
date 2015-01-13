@@ -49,7 +49,8 @@ public class Robot extends IterativeRobot
      */
     public void autonomousPeriodic()
     {
-        double distance = 2.678677012 * ultrasonicSensor.getVoltage() + 0.0204464172;
+        double distance = 2.678677012 * ultrasonicSensor.getVoltage() 
+            + 0.0204464172;
         double error = distance - m_setpoint;
         driveControl.arcadeDrive(-(ChassisPIDControl.getMotorValue(error,
                 m_pConstant, m_iConstant)), 0);
@@ -74,7 +75,7 @@ public class Robot extends IterativeRobot
 
     public void disabledPeriodic()
     {
-        System.out
-                .println(2.678677012 * ultrasonicSensor.getVoltage() + 0.0204464172);
+        System.out.println(2.678677012 * ultrasonicSensor.getVoltage() 
+            + 0.0204464172);
     }
 }
