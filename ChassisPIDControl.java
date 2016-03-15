@@ -4,32 +4,27 @@ import edu.wpi.first.wpilibj.Timer;
 
 public class ChassisPIDControl
 {
-    static double cummulativeError = 0;
-    static double motorPower;
-    static double time;
-    static double oldTime = 0;
-    static double timeDifference;
+    static double cumulativeError = 0,
+                  motorPower;
+                  time;
+                  oldTime = 0;
+                  timeDifference;
 
     static double getMotorValue(double error, double pConstant, 
-        double Iconstant)
+        double iConstant)
     {
         time = Timer.getFPGATimestamp();
-        if(oldTime == 0)
-        {
-            timeDifference = 0;
-        } else
+        timeDifference = 0;
+        motorPower = 0;
+        if(oldTime != 0)
         {
             timeDifference = time - oldTime;
         }
-        cummulativeError += error;
+        cumulativeError += error;
         if(error > 0)
         {
-            motorPower = -(error * pConstant + cummulativeError * Iconstant
+            motorPower = -(error * pConstant) + (cumulativeError * iConstant
                     * timeDifference);
-        }
-        if(error < 0)
-        {
-            motorPower = 0;
         }
         oldTime = time;
         return motorPower;
@@ -37,7 +32,7 @@ public class ChassisPIDControl
 
     static void reinit()
     {
-        cummulativeError = 0;
+        cumulativeError = 0;
         oldTime = 0;
     }
 }
